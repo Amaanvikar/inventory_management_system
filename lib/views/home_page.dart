@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:inventory_management/screens/cart_page.dart';
+import 'package:inventory_management/screens/cart_sceen.dart';
+import 'package:inventory_management/widgets/drawer_widget.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -31,13 +32,14 @@ class HomePage extends StatelessWidget {
                 Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const CartPage(),
+                      builder: (context) => const CartScreen(),
                     ));
               },
             ),
           ],
         ),
       ),
+      drawer: const DrawerWidget(),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -69,19 +71,6 @@ class HomePage extends StatelessWidget {
             ),
           ],
         ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.category), label: "Categories"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_cart), label: "Cart"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.account_circle), label: "Profile"),
-        ],
-        selectedItemColor: Colors.orange,
-        unselectedItemColor: Colors.grey,
       ),
     );
   }

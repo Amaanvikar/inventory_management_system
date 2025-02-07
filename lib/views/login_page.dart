@@ -11,14 +11,14 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _phoneNumberController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   Future<void> signUserIn() async {
     try {
       final supabase = Supabase.instance.client;
       final response = await supabase.auth.signInWithPassword(
-        phone: _emailController.text,
+        phone: _phoneNumberController.text,
         password: _passwordController.text,
       );
 
@@ -32,6 +32,32 @@ class _LoginPageState extends State<LoginPage> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(e.message)),
       );
+    }
+  }
+
+  Future<void> checkUserExists(String email) async {
+    final user = await Supabase.instance.client
+        .from('auth.users')
+        .select()
+        .eq('email', email)
+        .maybeSingle();
+
+    if (user == null) {
+      print("User does not exist. Please sign up first.");
+    } else {
+      print("User exists: ${user['Phone no']}");
+    }
+  }
+
+  Future<void> loginUser(String phone, String password) async {
+    try {
+      final response = await Supabase.instance.client.auth.signInWithPassword(
+        phone: phone,
+        password: password,
+      );
+      print("Login successful: ${response.user?.email}");
+    } catch (error) {
+      print("Login Error: $error");
     }
   }
 
@@ -68,14 +94,14 @@ class _LoginPageState extends State<LoginPage> {
                       child: Column(
                         children: [
                           TextFormField(
-                            controller: _emailController,
+                            controller: _phoneNumberController,
                             decoration: const InputDecoration(
                               labelText: 'Phone',
                               border: OutlineInputBorder(),
                             ),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
-                                return 'Please enter your email';
+                                return 'Please enter your Phone No';
                               }
                               return null;
                             },

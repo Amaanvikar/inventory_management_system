@@ -59,6 +59,18 @@ class _SignUpPageState extends State<SignUpPage> {
     }
   }
 
+  Future<void> signUpUser(String phone, String password) async {
+    try {
+      final response = await Supabase.instance.client.auth.signUp(
+        phone: phone,
+        password: password,
+      );
+      print("Signup successful: ${response.user?.email}");
+    } catch (error) {
+      print("Signup Error: $error");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
