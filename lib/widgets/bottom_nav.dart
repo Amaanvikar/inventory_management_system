@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:inventory_management/screens/cart_sceen.dart';
-import 'package:inventory_management/screens/categories_screen.dart';
+import 'package:inventory_management/screens/customer_screen.dart';
+import 'package:inventory_management/screens/order_sceen.dart';
 import 'package:inventory_management/screens/user_profile_screen.dart';
 import 'package:inventory_management/views/home_page.dart';
 
@@ -14,8 +14,8 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
 
   final List<Widget> _screens = [
     const HomePage(),
-    const CategoriesScreen(),
-    const CartScreen(),
+    const CustomerScreen(),
+    const OrderScreen(),
     const UserProfileScreen(),
   ];
 
@@ -42,8 +42,7 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
             icon: Stack(
               alignment: Alignment.topCenter,
               children: [
-                if (_selectedIndex ==
-                    index) // Show the indicator only for the selected tab
+                if (_selectedIndex == index)
                   Positioned(
                     top: 0,
                     child: Container(
@@ -76,9 +75,9 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
       case 0:
         return Icons.home;
       case 1:
-        return Icons.category;
+        return Icons.person;
       case 2:
-        return Icons.shopping_cart;
+        return Icons.book_sharp;
       case 3:
         return Icons.account_circle;
       default:
@@ -91,9 +90,9 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
       case 0:
         return "Home";
       case 1:
-        return "Categories";
+        return "Customer";
       case 2:
-        return "Cart";
+        return "Order";
       case 3:
         return "Profile";
       default:

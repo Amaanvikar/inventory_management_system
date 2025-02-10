@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:inventory_management/screens/cart_sceen.dart';
+import 'package:inventory_management/screens/cart_screen.dart';
 import 'package:inventory_management/widgets/drawer_widget.dart';
+import 'package:inventory_management/widgets/product_card_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -53,6 +54,32 @@ class HomePage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10),
+
+            // GridView.builder(
+            //   shrinkWrap: true,
+            //   physics: const NeverScrollableScrollPhysics(),
+            //   padding: const EdgeInsets.symmetric(horizontal: 16),
+            //   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            //     crossAxisCount: 2,
+            //     mainAxisSpacing: 16,
+            //     crossAxisSpacing: 16,
+            //     childAspectRatio: 0.7,
+            //   ),
+            //   itemCount: 6,
+            //   itemBuilder: (context, index) {
+            //     return ProductCard(
+            //       productName: "Product $index",
+            //       productPrice: "\$${(index + 1) * 20}",
+            //       productImage:
+            //           "https://englishan.com/wp-content/uploads/2023/12/10-1.png",
+            //       onQuantityChanged: (productName, quantity) {
+            //         print(
+            //             "Updated $productName in cart with quantity: $quantity");
+            //       },
+            //     );
+            //   },
+            // ),
+
             GridView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
@@ -65,8 +92,15 @@ class HomePage extends StatelessWidget {
               ),
               itemCount: 6,
               itemBuilder: (context, index) {
-                return productCard("Product $index", "\$${(index + 1) * 20}",
-                    "https://via.placeholder.com/150");
+                return ProductCard(
+                  productName: "Product $index",
+                  productPrice: "\$${(index + 1) * 20}",
+                  productImage:
+                      "https://englishan.com/wp-content/uploads/2023/12/10-1.png",
+                  onAddToCart: () {
+                    print("Added Product $index to cart");
+                  },
+                );
               },
             ),
           ],
